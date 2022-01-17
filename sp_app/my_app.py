@@ -10,10 +10,10 @@ stl.image(image, use_column_width=True)
 
 stl.markdown("<h3 style='text-align: center; font:bold'>Simple Stock Price App</h3>", unsafe_allow_html=True)
 
-
 # Stock list = [GOOGL, AAPL]
 # Define the ticker Symbol.
-tickerSymbol = 'AAPL'
+stock_name = input("Enter Stock Name: ")
+tickerSymbol = stock_name.strip().upper()
 
 stl.write("""
 ***
@@ -21,10 +21,17 @@ Shown are the stock **closing price** and ***volume*** of """ + tickerSymbol)
 
 # Get data on this ticker.
 tickerData = yf.Ticker(tickerSymbol)
-# To get to date historical pricesof this ticker.
+# To get to date historical prices of this ticker.
 today = date.today()
 # Get the historical prices of this ticker.
-tickerDf = tickerData.history(period='1d', start='2019-1-1', end=today)
+start_year = input("Enter Starting Year in this format : YY-MM-DD; e.g 2000-1-1\nEnter Year : ")
+end_year = input("Enter Ending Year in this format : YY-MM-DD; e.g 2000-1-1\nEnter Year : ")
+if len(end_year) == 0:
+    tickerDf = tickerData.history(period='1d', start=start_year, end=today)
+    stl.write("""Showing""" + tickerSymbol, """Stock Price from: """ + start_year, """- Current Date""")
+else:
+    tickerDf = tickerData.history(period='1d', start=start_year, end=end_year)
+    stl.write("""Showing """ + tickerSymbol, """Stock Price from: """ + start_year, """-""", end_year)
 # Open   High   Low   Close Volume  Dividends   Stock  Splits.
 
 stl.markdown("<h5 style='text-align: left; color: navy'>Closing Price</h5>", unsafe_allow_html=True)
