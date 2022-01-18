@@ -66,7 +66,7 @@ stl.markdown("<h5 style='text-align: left; color: navy'>Volume Price</h5>", unsa
 # """)
 stl.line_chart(tickerDf.Volume)
 
-stl.markdown("<h6 style='text-align: center;'>A stock price is a given for every share issued by a publicly traded company. The price is a reflection of the company’s value – what the public is willing to pay for a piece of the company. It can and will rise and fall, based on a variety of factors in the global landscape and within the company itself.</h6>", unsafe_allow_html=True)
+stl.markdown("<h6 style='text-align: center;'>A share price is the price of a single share of a number of saleable equity shares of a company. In layman's terms, the stock price is the highest amount someone is willing to pay for the stock, or the lowest amount that it can be bought for. The price is a reflection of the company’s value – what the public is willing to pay for a piece of the company. It can and will rise and fall, based on a variety of factors in the global landscape and within the company itself.</h6>", unsafe_allow_html=True)
 
 
 stl.markdown("<h6 style='text-align: right; color: navy '>By; Jamiu Shaibu</h6>", unsafe_allow_html=True)
