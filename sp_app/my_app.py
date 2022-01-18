@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import date
 from PIL import Image
 
-
+# Display image in the web app
 image = Image.open('global-markets.jpg')
 stl.image(image, use_column_width=True)
 
@@ -24,14 +24,30 @@ tickerData = yf.Ticker(tickerSymbol)
 today = date.today()
 # Get the historical prices of this ticker.
 # Recieve input of Starting year.
-start_year = input("Enter Starting Year in this format : YY-MM-DD; e.g 2000-1-1\nEnter Year : ")
+start_year = input("\nEnter Starting Year in this format : YY-MM-DD; e.g 2000-1-1\nEnter Year : ")
 # Recieve input of Ending year.
-end_year = input("Enter Ending Year in this format : YY-MM-DD; e.g 2000-1-1\nEnter Year : ")
+end_year = input("\nEnter Ending Year in this format : YY-MM-DD; e.g 2000-1-1\nEnter Year : ")
 
 # Set Current date as default if ending year is not provided
 if len(end_year) == 0:
     tickerDf = tickerData.history(period='1d', start=start_year, end=today)
-    stl.write("""Showing""" + tickerSymbol, """Stock Price from: """ + start_year, """- Current Date""")
+    stl.write("""Showing """ + tickerSymbol, """Stock Price from: """ + start_year, """- Current Date""")
+    stl.write("""**NOTE:** You didn't **enter** Targeted Closing Date. **Current Date is set as Default.**""")
+
+elif len(start_year) == 0:
+    # Set Default Starting year
+    default_start = "2000-1-1"
+    tickerDf = tickerData.history(period='1d', start=default_start, end=end_year)
+    stl.write("""Showing """ + tickerSymbol, """Stock Price from: """ + default_start, """- """, end_year)
+    stl.write("""**NOTE:** You didn't **enter** Targeted Starting Date. **Starting Date is set to 2000-1-1 as Default.**""")
+
+elif len(start_year) == 0 and len(end_year) == 0:
+    # Set Default
+    start_from = "2000-1-1"
+    tickerDf = tickerData.history(period='1d', start=start_from, end=today)
+    stl.write("""Showing """ + tickerSymbol, """Stock Price from: """ + start_from, """- Current Date""")
+    stl.write("""**NOTE:** You didn't **enter** Targeted Date for both Start and Close. **2000-1-1 and Current Date are set as Default.**""")
+
 # Provide data within start_year and end_year
 else:
     tickerDf = tickerData.history(period='1d', start=start_year, end=end_year)
