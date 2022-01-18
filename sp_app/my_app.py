@@ -10,8 +10,7 @@ stl.image(image, use_column_width=True)
 
 stl.markdown("<h3 style='text-align: center; font:bold'>Simple Stock Price App</h3>", unsafe_allow_html=True)
 
-# Stock list = [GOOGL, AAPL]
-# Define the ticker Symbol.
+# Recieve input of the stock name
 stock_name = input("Enter Stock Name: ")
 tickerSymbol = stock_name.strip().upper()
 
@@ -24,11 +23,16 @@ tickerData = yf.Ticker(tickerSymbol)
 # To get to date historical prices of this ticker.
 today = date.today()
 # Get the historical prices of this ticker.
+# Recieve input of Starting year.
 start_year = input("Enter Starting Year in this format : YY-MM-DD; e.g 2000-1-1\nEnter Year : ")
+# Recieve input of Ending year.
 end_year = input("Enter Ending Year in this format : YY-MM-DD; e.g 2000-1-1\nEnter Year : ")
+
+# Set Current date as default if ending year is not provided
 if len(end_year) == 0:
     tickerDf = tickerData.history(period='1d', start=start_year, end=today)
     stl.write("""Showing""" + tickerSymbol, """Stock Price from: """ + start_year, """- Current Date""")
+# Provide data within start_year and end_year
 else:
     tickerDf = tickerData.history(period='1d', start=start_year, end=end_year)
     stl.write("""Showing """ + tickerSymbol, """Stock Price from: """ + start_year, """-""", end_year)
